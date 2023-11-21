@@ -50,7 +50,7 @@ function checkToken(req, res, next) {
 
 //Registro do usuário
 app.post("/auth/register", async (req, res) => {
-  const { name, email, password, confirmpassword } = req.body;
+  const { name, email, password, confirmpassword, phone } = req.body;
 
   // Validação
   if (!name) {
@@ -64,12 +64,16 @@ app.post("/auth/register", async (req, res) => {
   if (!password) {
     return res.status(422).json({ msg: "Senha é obrigatória !" });
   }
-
   if (password != confirmpassword) {
     return res
       .status(422)
       .json({ msg: "Senha e a confirmação precisam ser iguais !" });
   }
+
+  if (!phone) {
+    return res.status(422).json({ msg: "Telefone é obrigatória !" });
+  }
+
 
   // Verifica se o usuário existe
   const userExists = await User.findOne({ email: email });
@@ -87,6 +91,7 @@ app.post("/auth/register", async (req, res) => {
     name,
     email,
     passwordHash,
+    phone
   });
 
   try {
@@ -151,7 +156,7 @@ mongoose
     `mongodb+srv://${dbUser}:${dbPassword}@cluster0.eomc3wf.mongodb.net/?retryWrites=true&w=majority`
   )
   .then(() => {
-    console.log("Conectou ao banco!");
+    console.log("Conectado ao banco!");
     app.listen(3000);
   })
   .catch((err) => console.log(err));
