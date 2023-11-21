@@ -148,7 +148,7 @@ const dbPassword = process.env.DB_PASS;
 //Conexão com o mangoDB
 mongoose
   .connect(
-    `mongodb+srv://${dbUser}:${dbPassword}@cluster0.folvv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+    `mongodb+srv://${dbUser}:${dbPassword}@cluster0.eomc3wf.mongodb.net/?retryWrites=true&w=majority`
   )
   .then(() => {
     console.log("Conectou ao banco!");
